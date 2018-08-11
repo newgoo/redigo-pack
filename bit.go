@@ -1,4 +1,4 @@
 package redigo_pack
 
-type BitRds struct {
+type bitRds struct {
 }

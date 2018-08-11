@@ -1,4 +1,4 @@
 package redigo_pack
 
-type ZSetRds struct {
+type zSetRds struct {
 }

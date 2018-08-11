@@ -1,13 +1,13 @@
 package redigo_pack
 
 type redigoPack struct {
-	String StringRds
-	List   ListRds
+	String stringRds
+	List   listRds
 	Hash   hashRds
-	Key    KeyRds
-	Set    SetRds
-	ZSet   ZSetRds
-	Bit    BitRds
+	Key    keyRds
+	Set    setRds
+	ZSet   zSetRds
+	Bit    bitRds
 }
 
 var RedigoConn = new(redigoPack)

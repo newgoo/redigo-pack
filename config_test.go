@@ -11,7 +11,7 @@ func TestGetConfigWithFilr(t *testing.T) {
 }
 
 func TestNewConnection(t *testing.T) {
-	logrus.Info(NewConnectionWithFile("redis", "./config/config.ini"))
+	//logrus.Info(NewConnectionWithFile("redis", "./config/config.ini"))
 	RedigoConn.String.Set("1", 2, 10)
 	logrus.Info(RedigoConn.String.Get("1").Int64())
 }
