@@ -11,9 +11,9 @@ func (h *hashRds) HSet(key string, filed, value interface{}, exist ...bool) *Rep
 	defer c.Close()
 	if len(exist) > 0 && exist[0] {
 		return getReply(c.Do("hsetex", key, value))
-	} else {
-		return getReply(c.Do("set", key, value))
 	}
+	return getReply(c.Do("set", key, value))
+
 }
 
 //获取指定字段值
