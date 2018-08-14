@@ -1,0 +1,49 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
+			"path": "github.com/garyburd/redigo/internal",
+			"revision": "569eae59ada904ea8db7a225c2b47165af08735a",
+			"revisionTime": "2018-04-04T16:07:26Z"
+		},
+		{
+			"checksumSHA1": "s+rvTIsoalUU4Jn3N/d9Wu8S7XI=",
+			"path": "github.com/garyburd/redigo/redis",
+			"revision": "569eae59ada904ea8db7a225c2b47165af08735a",
+			"revisionTime": "2018-04-04T16:07:26Z"
+		},
+		{
+			"checksumSHA1": "9ZSqjmvF/JE6Qj/5xOoCAmUgXz8=",
+			"path": "github.com/sirupsen/logrus",
+			"revision": "778f2e774c725116edbc3d039dc0dfc1cc62aae8",
+			"revisionTime": "2018-03-29T22:59:52Z"
+		},
+		{
+			"checksumSHA1": "BGm8lKZmvJbf/YOJLeL1rw2WVjA=",
+			"path": "golang.org/x/crypto/ssh/terminal",
+			"revision": "1f94bef427e370e425e55b172f3b5e300ef38304",
+			"revisionTime": "2018-04-29T10:40:40Z"
+		},
+		{
+			"checksumSHA1": "wz2HIEciCauzwy54UBmaPaDnlcE=",
+			"path": "golang.org/x/sys/unix",
+			"revision": "6f686a352de66814cdd080d970febae7767857a3",
+			"revisionTime": "2018-05-02T15:14:59Z"
+		},
+		{
+			"checksumSHA1": "Dfz4tGItokMvHZENCsBmPPB8FGQ=",
+			"path": "golang.org/x/sys/windows",
+			"revision": "6f686a352de66814cdd080d970febae7767857a3",
+			"revisionTime": "2018-05-02T15:14:59Z"
+		},
+		{
+			"checksumSHA1": "FzFMovjGbAQRog5LrpJyirNZvVc=",
+			"path": "gopkg.in/ini.v1",
+			"revision": "358ee7663966325963d4e8b2e1fbd570c5195153",
+			"revisionTime": "2018-07-12T13:10:51Z"
+		}
+	],
+	"rootPath": "github.com/newgoo/redigo-pack"
+}
