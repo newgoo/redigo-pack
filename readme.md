@@ -41,5 +41,8 @@ func main() {
 ### License
 The MIT License.
 
+### 联系我
+[newgoo](happs.lives@gmail.com)
+
 ### 感谢
 [vichuyongqiang](https://github.com/vichuyongqiang)提供的list的封装
