@@ -12,8 +12,8 @@ type Config struct {
 	Port      int64  `ini:"port"`
 	Db        int64  `ini:"db"`
 	Password  string `ini:"password"`
-	MaxIdle   int    `ini:"max_idle"`   //default 10
-	MaxActive int    `ini:"max_active"` //default 10000
+	MaxIdle   int    `ini:"max_idle"`   //default 10  最大连接数
+	MaxActive int    `ini:"max_active"` //default 10000 连接池最大数
 	Wait      bool   `ini:"wait"`
 }
 
@@ -28,6 +28,12 @@ func getConfigWithFile(tagName, path string) (*Config, error) {
 	config := new(Config)
 	if err = f.Section(tagName).MapTo(&config); err != nil {
 		return nil, err
+	}
+	if config.MaxActive == 0 {
+		config.MaxActive = 10000
+	}
+	if config.MaxIdle == 0 {
+		config.MaxIdle = 10
 	}
 	return config, nil
 }
