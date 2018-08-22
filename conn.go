@@ -26,6 +26,7 @@ func NewConnectionWithFile(tagName, path string) error {
 	}
 
 	initPool(config)
+	logrus.Info("redis 配置为: ", config)
 	return nil
 }
 

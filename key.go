@@ -37,7 +37,7 @@ func (k *keyRds) Type(key string) *Reply {
 func (k *keyRds) Del(keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("del", redis.Args{}.AddFlat(keys)))
+	return getReply(c.Do("del", redis.Args{}.AddFlat(keys)...))
 }
 
 //重命名

@@ -34,7 +34,7 @@ func (h *hashRds) HGetAll(key string) *Reply {
 func (h *hashRds) HMSetFromMap(key string, mp map[interface{}]interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hmset", key, mp))
+	return getReply(c.Do("hmset", redis.Args{}.Add(key).AddFlat(mp)...))
 }
 
 //设置多个字段及值 [struct]
@@ -48,14 +48,14 @@ func (h *hashRds) HMSetFromStruct(key string, obj interface{}) *Reply {
 func (h *hashRds) HMGet(key string, fileds []interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hmget", key, fileds))
+	return getReply(c.Do("hmget", redis.Args{}.Add(key).AddFlat(fileds)...))
 }
 
 //字段删除
 func (h *hashRds) HDel(key string, fileds []interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hdel", key, fileds))
+	return getReply(c.Do("hdel", redis.Args{}.Add(key).AddFlat(fileds)...))
 }
 
 //判断字段是否存在

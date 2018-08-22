@@ -82,7 +82,7 @@ func (s *stringRds) MSetNx(kv map[string]interface{}) *Reply {
 func (s *stringRds) MGet(keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("mget", keys))
+	return getReply(c.Do("mget", redis.Args{}.AddFlat(keys)...))
 }
 
 // 自增

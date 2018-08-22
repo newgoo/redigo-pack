@@ -1,5 +1,7 @@
 package redigo_pack
 
+import "github.com/garyburd/redigo/redis"
+
 type setRds struct {
 }
 
@@ -7,7 +9,7 @@ type setRds struct {
 func (h *setRds) SAdd(key string, fileds []interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sadd", key, fileds))
+	return getReply(c.Do("sadd", redis.Args{}.Add(key).AddFlat(fileds)...))
 }
 
 // 集合元素个数
@@ -52,7 +54,7 @@ func (h *setRds) SRandMember(key string, count ...int64) *Reply {
 func (h *setRds) SRem(key string, members []interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("srem", key, members))
+	return getReply(c.Do("srem", redis.Args{}.Add(key).AddFlat(members)...))
 }
 
 // 将元素从集合移至另一个集合
@@ -66,40 +68,40 @@ func (h *setRds) SMove(sourceKey, destinationKey string, member interface{}) *Re
 func (h *setRds) SDiff(keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sdiff", keys))
+	return getReply(c.Do("sdiff", redis.Args{}.AddFlat(keys)...))
 }
 
 // 将一或多个集合的差集保存至另一集合(destinationKey)
 func (h *setRds) SDiffStore(destinationKey string, keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sdiffstore", destinationKey, keys))
+	return getReply(c.Do("sdiffstore", redis.Args{}.Add(destinationKey).AddFlat(keys)...))
 }
 
 // 将keys的集合的并集 写入到 destinationKey中
 func (h *setRds) SInterStore(destinationKey string, keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sinterstore", destinationKey, keys))
+	return getReply(c.Do("sinterstore", redis.Args{}.Add(destinationKey).AddFlat(keys)...))
 }
 
 // 一个或多个集合的交集
 func (h *setRds) SInter(keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sinter", keys))
+	return getReply(c.Do("sinter", redis.Args{}.AddFlat(keys)...))
 }
 
 // 返回集合的并集
 func (h *setRds) SUnion(keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sunion", keys))
+	return getReply(c.Do("sunion", redis.Args{}.AddFlat(keys)...))
 }
 
 // 将 keys 的集合的并集 写入到 destinationKey 中
 func (h *setRds) SUnionStore(destinationKey string, keys []string) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("sunionstore", destinationKey, keys))
+	return getReply(c.Do("sunionstore", redis.Args{}.Add(destinationKey).AddFlat(keys)...))
 }
