@@ -10,17 +10,16 @@ func (h *hashRds) HSet(key string, filed, value interface{}, exist ...bool) *Rep
 	c := pool.Get()
 	defer c.Close()
 	if len(exist) > 0 && exist[0] {
-		return getReply(c.Do("hsetex", key, value))
+		return getReply(c.Do("hsetex", key, filed, value))
 	}
-	return getReply(c.Do("set", key, value))
-
+	return getReply(c.Do("hset", key, filed, value))
 }
 
 //获取指定字段值
 func (h *hashRds) HGet(key string, filed interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hget", key))
+	return getReply(c.Do("hget", key, filed))
 }
 
 //获取所有字段及值
@@ -41,18 +40,18 @@ func (h *hashRds) HMSetFromMap(key string, mp map[interface{}]interface{}) *Repl
 func (h *hashRds) HMSetFromStruct(key string, obj interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hmset", redis.Args{}.Add(key).AddFlat(obj)))
+	return getReply(c.Do("hmset", redis.Args{}.Add(key).AddFlat(obj)...))
 }
 
 //返回多个字段值
-func (h *hashRds) HMGet(key string, fileds []interface{}) *Reply {
+func (h *hashRds) HMGet(key string, fileds interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
 	return getReply(c.Do("hmget", redis.Args{}.Add(key).AddFlat(fileds)...))
 }
 
 //字段删除
-func (h *hashRds) HDel(key string, fileds []interface{}) *Reply {
+func (h *hashRds) HDel(key string, fileds interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
 	return getReply(c.Do("hdel", redis.Args{}.Add(key).AddFlat(fileds)...))
@@ -87,15 +86,15 @@ func (h *hashRds) HVals(key string) *Reply {
 }
 
 //为指定字段值增加
-func (h *hashRds) HIncrBy(key string, increment interface{}) *Reply {
+func (h *hashRds) HIncrBy(key string, filed interface{}, increment interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hincrby", key, increment))
+	return getReply(c.Do("hincrby", key, filed, increment))
 }
 
 //为指定字段值增加浮点数
-func (h *hashRds) HIncrByFloat(key string, increment float64) *Reply {
+func (h *hashRds) HIncrByFloat(key string, filed interface{}, increment float64) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("hincrbyfloat", key, increment))
+	return getReply(c.Do("hincrbyfloat", key, filed, increment))
 }

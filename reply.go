@@ -1,6 +1,8 @@
 package redigo_pack
 
-import "github.com/garyburd/redigo/redis"
+import (
+	"github.com/garyburd/redigo/redis"
+)
 
 type Reply struct {
 	reply interface{}
@@ -87,6 +89,7 @@ func (r *Reply) Values() ([]interface{}, error) {
 	return redis.Values(r.reply, r.error)
 }
 
+// obj为一个指针对象
 func (r *Reply) ScanStruct(obj interface{}) error {
 	v, err := r.Values()
 	if err != nil {
