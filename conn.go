@@ -10,6 +10,7 @@ type redigoPack struct {
 	Set    setRds
 	ZSet   zSetRds
 	Bit    bitRds
+	Db     dbRds
 }
 
 var RedigoConn = new(redigoPack)
