@@ -42,6 +42,7 @@ func main() {
 The MIT License.
 
 ### 联系我
+如果有不足的地方，需要添加的请联系我
 newgoo: happs.lives@gmail.com
 
 ### 感谢
