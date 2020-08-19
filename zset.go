@@ -1,5 +1,7 @@
 package redigo_pack
 
+import "github.com/garyburd/redigo/redis"
+
 type zSetRds struct {
 }
 
@@ -7,7 +9,7 @@ type zSetRds struct {
 func (z *zSetRds) ZAdd(key string, mp map[interface{}]interface{}) *Reply {
 	c := pool.Get()
 	defer c.Close()
-	return getReply(c.Do("zadd", key, mp))
+	return getReply(c.Do("zadd", redis.Args{}.Add(key).AddFlat(mp)...))
 }
 
 // 	增加元素权重
