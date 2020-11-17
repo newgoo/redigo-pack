@@ -1,6 +1,6 @@
 package redigo_pack
 
-import "github.com/garyburd/redigo/redis"
+import "github.com/gomodule/redigo/redis"
 
 type stringRds struct {
 }
