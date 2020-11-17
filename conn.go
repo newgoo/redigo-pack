@@ -4,7 +4,7 @@ import (
 	"github.com/garyburd/redigo/redis"
 )
 
-type redigoPack struct {
+type RedigoPack struct {
 	String stringRds
 	List   listRds
 	Hash   hashRds
@@ -15,7 +15,7 @@ type redigoPack struct {
 	Db     dbRds
 }
 
-var RedigoConn = new(redigoPack)
+var RedigoConn = new(RedigoPack)
 
 func NewConnectionWithFile(addr, password string) error {
 
