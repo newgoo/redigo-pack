@@ -1,45 +1,45 @@
 package redigo_pack
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	"github.com/garyburd/redigo/redis"
-	"github.com/sirupsen/logrus"
 )
 
 var pool *redis.Pool
 
-func initPool(config *Config) {
+func initPool(addr, password string) {
 	pool = &redis.Pool{
-		MaxIdle:     config.MaxIdle,
-		MaxActive:   config.MaxActive,
-		IdleTimeout: 30 * time.Second,
-		Wait:        config.Wait,
+		MaxIdle:     10,
+		MaxActive:   200,
+		IdleTimeout: 180 * time.Second,
+		Wait:        true,
 		Dial: func() (redis.Conn, error) {
-			return setDialog(config)
+			return setDialog(addr, password)
 		},
 	}
 }
 
-func setDialog(config *Config) (redis.Conn, error) {
-	conn, err := redis.Dial("tcp", fmt.Sprintf("%s:%d", config.Host, config.Port))
+func initPoolByOld(old *redis.Pool) {
+	pool = old
+}
+
+func setDialog(addr, password string) (redis.Conn, error) {
+	conn, err := redis.Dial("tcp", addr)
 	if err != nil {
-		logrus.Error(fmt.Sprintf("init redis failed! %v", config))
+		return nil, err
 	}
-	if len(config.Password) != 0 {
-		if _, err := conn.Do("AUTH", config.Password); err != nil {
-			conn.Close()
-			logrus.Error(err)
+	if len(password) != 0 {
+		if _, err := conn.Do("AUTH", password); err != nil {
+			_ = conn.Close()
+			return nil, err
 		}
 	}
-	if _, err := conn.Do("SELECT", config.Db); err != nil {
-		conn.Close()
-		logrus.Error(err)
-	}
+
 	r, err := redis.String(conn.Do("PING"))
 	if err != nil || r != "PONG" {
-		panic("连接失败")
+		log.Fatalf("failed to connect redis: %v, err: %v", addr, RedigoConn)
 	}
 
 	return conn, nil

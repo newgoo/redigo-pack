@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	redigo_pack.NewConnectionWithFile("redis", "./config/config.ini")
+    redigo_pack.InitPool("", "")
 }
 
 func main() {

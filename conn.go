@@ -1,6 +1,8 @@
 package redigo_pack
 
-import "github.com/sirupsen/logrus"
+import (
+	"github.com/garyburd/redigo/redis"
+)
 
 type redigoPack struct {
 	String stringRds
@@ -15,22 +17,13 @@ type redigoPack struct {
 
 var RedigoConn = new(redigoPack)
 
-func NewConnectionWithFile(tagName, path string) error {
-	config, err := getConfigWithFile(tagName, path)
-	if err != nil {
-		//return err
-		logrus.Error("没有找到配置文件,默认文件./conf/app.conf")
-		config, err = getConfigWithFile(tagName, "./conf/app.conf")
-		if err != nil || config == nil {
-			return err
-		}
-	}
+func NewConnectionWithFile(addr, password string) error {
 
-	initPool(config)
-	logrus.Info("redis 配置为: ", config)
+	initPool(addr, password)
 	return nil
 }
 
-func NewConnection() {
-
+func NewConnectionByPool(pool2 *redis.Pool) error {
+	initPoolByOld(pool2)
+	return nil
 }
