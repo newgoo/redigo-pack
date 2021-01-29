@@ -12,3 +12,11 @@ func Test_zSetRds_ZAdd(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func TestZset(t *testing.T) {
+	t.Log(a(15).(int))
+}
+
+func a(arg interface{}) interface{} {
+	return arg
+}
